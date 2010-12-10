@@ -4,7 +4,7 @@ var Color = function (r, g, b, a) {
 	this.r = r;
 	this.g = g;
 	this.b = b;
-	this.a = a;
+	this.a = argumnts.length < 4 ? 255 : a;
 };
 
 var round = Math.round;
@@ -12,7 +12,7 @@ var round = Math.round;
 var Picture = nano.implement(
 	function (canvas) {
 		this.canvas = Picture.imageToCanvas(canvas);
-		this.canvas.ctx = this.canvas.getContext('2d');
+		this.ctx    = this.canvas.getContext('2d');
 	}, {
 		getColors : function () {
 			return this.getPixelsCallback(function (r,g,b,a) {
@@ -29,7 +29,7 @@ var Picture = nano.implement(
 		},
 		getPixelsCallback : function (fn) {
 			var c = this.canvas, w = c.width, h = c.height;
-			var pix = c.ctx.getImageData(0,0,w,h).data;
+			var pix = this.ctx.getImageData(0,0,w,h).data;
 			var all = {}, x, y;
 
 			for (y = 0; y < h; y++) for (x = 0; x < w; x++) {
