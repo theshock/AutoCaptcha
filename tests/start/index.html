@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Captcha breaker</title>
+		<style>
+body { background : #eaeee0; }
+li {
+	list-style : none;
+	border  : 1px dashed #ccc;
+	margin  : 4px;
+	padding : 2px;
+	float   : left;
+}
+span {
+	display : block;
+	border  : 1px dashed #9c9;
+	width   : 160px;
+	height  : 20px;
+	font-family: monospace;
+	padding : 2px 20px;
+}
+img {
+	display : block;
+	margin : 4px;
+}
+p {
+	font-family : monospace;
+	line-height : 10px;
+	margin : 0;
+	padding : 0;
+}
+		</style>
+	</head>
+	<body>
+		Captcha breaker:
+		<ul>
+			<li>
+				<img src="captcha/gwl.gif" alt="Captcha" />
+				<span>GWL</span>
+			</li>
+			<li>
+				<img src="captcha/mwq.gif" alt="Captcha" />
+				<span>MWQ</span>
+			</li>
+			<li>
+				<img src="captcha/tdd.gif" alt="Captcha" />
+				<span>TDD</span>
+			</li>
+		</ul>
+
+	</body>
+	<script src="../../../nano/nano.js"></script>
+	<script src="../../picture.js"></script>
+	<script src="action.js"></script>
+</html>
