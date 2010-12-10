@@ -22,9 +22,9 @@ var Picture = nano.implement(
 		getLuminance : function () {
 			return this.getPixelsCallback(Picture.luminance);
 		},
-		getThreshold : function (threshold) {
+		getThreshold : function (thresholdMin, thresholdMax) {
 			return this.getPixelsCallback(
-				Picture.threshold.bind(Picture, threshold)
+				Picture.threshold.bind(Picture, thresholdMin, thresholdMax)
 			);
 		},
 		getPixelsCallback : function (fn) {
@@ -67,8 +67,9 @@ window.Picture = nano.extend(Picture, {
 	luminance : function (r, g, b) {
 		return round((r * 3 + g * 6 + b * 1) * 0.1);
 	},
-	threshold : function (threshold, r, g, b) {
-		return Picture.luminance(r, g, b) > (threshold || 127 ) ? 1 : 0;
+	threshold : function (thresholdMin, thresholdMax, r, g, b) {
+		var L = Picture.luminance(r, g, b);
+		return L > (thresholdMin || 127) && L <= (thresholdMax || 255) ? 1 : 0;
 	}
 });
 
