@@ -4,14 +4,12 @@ if (window.fireunit) {
 }
 
 nano().ready(true, function () {
-	var l = new Picture(this.find('img').get()).getLuminance();
-	var lines = [], round = Math.round;
-	var box = function (l) {
-		return '█▓▒░ '[parseInt(l / 256 * 5)];
-	};
-	for (var y in l) for (var x in l[y]) {
+	var img = this.find('img').get();
+	var pix = new Picture(img).getThreshold(80);
+	var lines = [];
+	for (var y in pix) for (var x in pix[y]) {
 		if (!lines[y]) lines[y] = '';
-		lines[y] += box(l[y][x]);
+		lines[y] += '.█'[pix[y][x]];
 	}
-	nano('body').get().innerHTML = '<p>' + lines.join('<p>').replace(/\ /g, '&nbsp;');
+	nano('body').get().innerHTML = '<p>' + lines.join('<p>');
 });

@@ -22,6 +22,11 @@ var Picture = nano.implement(
 		getLuminance : function () {
 			return this.getPixelsCallback(Picture.luminance);
 		},
+		getThreshold : function (threshold) {
+			return this.getPixelsCallback(
+				Picture.threshold.bind(Picture, threshold)
+			);
+		},
 		getPixelsCallback : function (fn) {
 			var c = this.canvas, w = c.width, h = c.height;
 			var pix = c.ctx.getImageData(0,0,w,h).data;
@@ -44,7 +49,7 @@ window.Picture = nano.extend(Picture, {
 	},
 	isImg : function (elem) {
 		return elem instanceof HTMLImageElement;
-	}, // threshold
+	},
 	imageToCanvas : function (elem) {
 		if (Picture.isCanvas(elem)) {
 			return elem;
@@ -59,9 +64,13 @@ window.Picture = nano.extend(Picture, {
 			throw 'NotImage';
 		}
 	},
-	luminance : function (r,g,b,a) {
+	luminance : function (r, g, b) {
 		return round((r * 3 + g * 6 + b * 1) * 0.1);
+	},
+	threshold : function (threshold, r, g, b) {
+		return Picture.luminance(r, g, b) > (threshold || 127 ) ? 1 : 0;
 	}
 });
 
 })();
+
