@@ -3,7 +3,7 @@ if (window.fireunit) {
 	//fireunit.testDone();
 }
 
-nano(function () {
+nano().ready(true, function () {
 	var l = new Picture(this.find('img').get()).getLuminance();
 	var lines = [], round = Math.round;
 	var box = function (l) {
